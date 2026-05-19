@@ -5,19 +5,18 @@ from telegram.ext import (
     ApplicationBuilder, CommandHandler, MessageHandler,
     CallbackQueryHandler, ContextTypes, filters
 )
+from dotenv import load_dotenv
+import os
 
-# ───────────────────────────────────────────────
-# НАСТРОЙКИ
-# ───────────────────────────────────────────────
-BOT_TOKEN = "8869309205:AAGx77n6mrz4jG_tMqwPbF3dlVuClnDG4kE"
+load_dotenv()
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+
 GPT4ALL_URL = "http://localhost:1234/v1/chat/completions"
 GPT4ALL_MODEL = "qwen2.5-coder-7b-instruct-spider-baseline"
 
 logging.basicConfig(level=logging.INFO)
 
-# ───────────────────────────────────────────────
-# ПАМЯТЬ ЧАТА — бот помнит контекст разговора
-# ───────────────────────────────────────────────
+
 chat_history: dict[int, list] = {}
 MAX_HISTORY = 10
 
@@ -345,3 +344,4 @@ if __name__ == "__main__":
     print("✅ Globe-бот запущен!")
     print("📍 LM Studio сервер должен работать на localhost:1234")
     app.run_polling()
+    
